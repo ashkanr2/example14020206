@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using MVC.DAL;
+
 namespace MVC
 {
     public class Program
@@ -8,7 +11,10 @@ namespace MVC
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-
+            builder.Services.AddDbContext<ApplicationDbContext>(x =>
+            {
+                x.UseSqlServer(builder.Configuration.GetConnectionString("ApplicationDbContext"));
+            });
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
